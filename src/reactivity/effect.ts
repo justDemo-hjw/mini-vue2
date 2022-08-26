@@ -2,7 +2,8 @@ import { extend } from '../shared';
 
 let activeEffect;
 let shouldTrack;
-class ReactiveEffect {
+let targetMap = new Map();
+export class ReactiveEffect {
   private _fn: any;
   deps = [];
   active = true;
@@ -36,7 +37,6 @@ function cleanupEffect(effect) {
   });
   effect.deps.length = 0;
 }
-let targetMap = new Map();
 export function track(target, key) {
   if (!isTracking()) return;
   // target --> key --> dep
